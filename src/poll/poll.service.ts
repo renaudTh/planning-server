@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { InsertResult, Repository } from "typeorm";
+import { DeleteResult, InsertResult, Repository } from "typeorm";
 import { Poll } from "./poll.entity";
 
 
@@ -14,10 +14,13 @@ export class PollService {
     }
 
     findOne(id: number) : Promise<Poll> {
-        return this.pollRepository.findOneBy({id});
+        return this.pollRepository.findOneBy({id: id});
     }
 
     add(poll: Poll) : Promise<Poll> {
        return this.pollRepository.save(poll);
+    }
+    remove(id: number): Promise<DeleteResult> {
+        return this.pollRepository.delete(id);
     }
 }
